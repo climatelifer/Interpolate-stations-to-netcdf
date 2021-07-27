@@ -27,23 +27,23 @@ do
 	lon=$(echo $n | cut -d ',' -f1)
 	lat=$(echo $n | cut -d ',' -f2)
 	name=$(echo $n | cut -d ',' -f3)
-	cdo -outputtab,date,lon,lat,value "-$interpol","lon=$lon"_"lat=$lat" $ncfile > ./stations/$name'.csv'	
+	cdo -outputtab,date,lon,lat,value "-$interpol","lon=$lon"_"lat=$lat" $ncfile | awk 'FNR==1{ row=$2","$3","$4","$5;print row  } FNR!=1{ row=$1","$2","$3","$4; print row}' > ./stations/$name'.csv'	
 
 done
 
 # modificar los archivos csv interpolados
-cd ./stations
+#cd ./stations
 
-for f in *.csv
-do
-	stname=$(cut -d'.' -f1 <<< $f)
-        #sed -i 's/value/'$stname'/' $f | sed -e's/#//g' $f > 'new_'$f
-        sed -i 's/value/'$stname'/' $f |sed -e 's/#//g' $f 
+#for f in *.csv
+#do
+#	stname=$(cut -d'.' -f1 <<< $f)
+#        sed -i 's/value/'$stname'/' $f | sed -e 's/#//g' $f > 'new_'$f
+        #sed -i 's/value/'$stname'/' $f |sed -e 's/#//g' $f 
 	#| tr -s ' ' < $f | sed 's/ /,/g' > 'new'$f
 	#| tr -s '[:blank:]' ',' > $f'.csv' 
 #	tr -s " " < $f | sed 's/ /,/g' > 'new'$f
 	#| cut -d ',' -f2-5 $f > $f
 	#cat ifile.txt | tr -s '[:blank:]' ',' > ofile.txt
-done
+#done
 
-cd ..
+#cd ..
