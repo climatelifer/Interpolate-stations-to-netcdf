@@ -38,14 +38,6 @@ for f in *.csv
 do
 	stname=$(cut -d'.' -f1 <<< $f)
         sed -i 's/value/'$stname'/' $f 
-	#| sed -e 's/#//g' $f > 'new_'$f
-        
-	#sed -i 's/value/'$stname'/' $f |sed -e 's/#//g' $f 
-	#| tr -s ' ' < $f | sed 's/ /,/g' > 'new'$f
-	#| tr -s '[:blank:]' ',' > $f'.csv' 
-#	tr -s " " < $f | sed 's/ /,/g' > 'new'$f
-	#| cut -d ',' -f2-5 $f > $f
-	#cat ifile.txt | tr -s '[:blank:]' ',' > ofile.txt
 done
 
 #cd ..
